@@ -29,6 +29,8 @@ class Digester
     classDoc = @docFromDocString(classEntity.doc)
     return unless classDoc
 
+    console.log("Digesting #{classEntity.name}...")
+
     sections = @filterSectionsForRowRange(classEntity.range[0][0], classEntity.range[1][0])
     classMethods = @extractEntities(sections, classEntity.classProperties, 'function')
     instanceMethods = @extractEntities(sections, classEntity.prototypeProperties, 'function')
@@ -80,9 +82,15 @@ class Digester
     entities = []
     for entityPosition in entityPositions
       entityObject = @objectFromPosition(entityPosition)
-      if entityObject.type is entityType
-        entity = @digestEntity(sections, entityObject, entityPosition)
-        entities.push entity if entity?
+      if entityObject
+        if entityObject.type is entityType
+          entity = @digestEntity(sections, entityObject, entityPosition)
+          entities.push entity if entity?
+      else
+        console.log("""Donna could not find an entity at position #{entityPosition}. \
+                   Check to make sure your class properties in #{@current.filename} \
+                   use @prop: instead of @prop=""")
+
     entities
 
   extractSections: (objects) ->
@@ -126,7 +134,7 @@ class Digester
       null
 
   objectFromPosition: (position) ->
-    @current.objects[position[0]][position[1]]
+    @current.objects[position[0]]?[position[1]]
 
   linkForRow: (row) ->
     return null unless @current.package.repository?
