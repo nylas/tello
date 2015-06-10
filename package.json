@@ -5,7 +5,7 @@
   "main": "./lib/tello.js",
   "scripts": {
     "test": "grunt test",
-    "prepublish": "grunt clean lint coffee"
+    "postinstall": "grunt clean lint coffee"
   },
   "bin": {
     "tello": "./bin/tello"
