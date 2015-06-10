@@ -5,4 +5,5 @@ v8.log
 spec
 .npmignore
 *.coffee
+!Gruntfile.coffee
 .node-version
