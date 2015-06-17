@@ -5,7 +5,7 @@
   "main": "./lib/tello.js",
   "scripts": {
     "test": "grunt test",
-    "postinstall": "grunt clean lint coffee"
+    "prepublish": "grunt clean lint coffee"
   },
   "bin": {
     "tello": "./bin/tello"
@@ -27,7 +27,9 @@
   "dependencies": {
     "atomdoc": "1.0.4",
     "underscore": "~1.6",
-    "optimist": "~0.6",
+    "optimist": "~0.6"
+  },
+  "devDependencies": {
     "jasmine-focused": "1.x",
     "jasmine-json": "~0.0",
     "grunt-contrib-coffee": "~0.7.0",
